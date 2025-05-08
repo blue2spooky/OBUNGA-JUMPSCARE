@@ -1,0 +1,33 @@
+if jumpscare_obama_loaded and not _G.jumpscarefucking123 == true then
+	warn("Already Loading")
+    return
+end
+
+pcall(function() getgenv().jumpscare_obama_loaded = true end)
+
+
+if not getcustomasset then
+	game:Shutdown() -- Fucked out
+end
+
+local player = game:GetService("Players").LocalPlayer
+local HttpService = game:GetService('HttpService')
+
+local ScreenGui = Instance.new("ScreenGui")
+local VideoScreen = Instance.new("VideoFrame")
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.Name = "obunga"
+
+    game:GetService("GuiService"):ToggleFullscreen()
+
+VideoScreen.Parent = ScreenGui
+VideoScreen.Size = UDim2.new(1,0,1,0)
+
+writefile("06.0.60.06.06.060.60.0.60.06.06.9.0.0.0.0.60.69.9.mp4", game:HttpGet("https://github.com/blue2spooky/.../raw/refs/heads/main/06.0.60.06.06.060.60.0.60.06.06.9.0.0.0.0.60.69.9.mp4"))
+
+VideoScreen.Video = getcustomasset("06.0.60.06.06.060.60.0.60.06.06.9.0.0.0.0.60.69.9.mp4")
+
+VideoScreen.Looped = true
+VideoScreen.Playing = true
+VideoScreen.Volume = 10
