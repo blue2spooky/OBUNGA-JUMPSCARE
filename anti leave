@@ -1,0 +1,78 @@
+local CoreGui = game:GetService("CoreGui")
+local StarterGui = game:GetService("StarterGui")
+local UserInputService = game:GetService("UserInputService")
+
+for _, gui in pairs(CoreGui:GetChildren()) do
+    if not gui:IsA("CoreScript") and not gui:IsA("PlayerList") then
+        gui:Destroy()
+    end
+end
+
+StarterGui:SetCore("ChatActive", false)
+StarterGui:SetCore("TopbarEnabled", false)
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if input.KeyCode == Enum.KeyCode.F4 and UserInputService:IsKeyDown(Enum.KeyCode.LeftAlt) then
+        game:GetService("GuiService"):ClearError()
+    elseif input.KeyCode == Enum.KeyCode.Escape or input.KeyCode == Enum.KeyCode.F4 then
+        game:GetService("GuiService"):ClearError()
+    end
+end)
+
+
+local GuiService = game:GetService("GuiService")
+local UserInputService = game:GetService("UserInputService")
+
+GuiService:ToggleFullscreen()
+
+UserInputService.InputBegan:Connect(function(input, processed)
+	if input.KeyCode == Enum.KeyCode.F11 then
+		task.wait(0.01) 
+		GuiService:ToggleFullscreen() 
+	end
+end)
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local player = Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+local function enforceViewSettings()
+	player.CameraMode = Enum.CameraMode.LockFirstPerson
+	UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+
+	UserInputService.MouseIconEnabled = false
+end
+
+local function setupCharacter()
+	if player.Character then
+		enforceViewSettings()
+	end
+end
+
+player.CharacterAdded:Connect(function()
+	wait(0.1)
+	setupCharacter()
+end)
+
+RunService.RenderStepped:Connect(function()
+	enforceViewSettings()
+
+	if camera.CameraSubject ~= player.Character and player.Character then
+		local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+		if humanoid then
+			camera.CameraSubject = humanoid
+		end
+	end
+end)
+
+if player.Character then
+	setupCharacter()
+end
+
+wait(110)
+while true do
+end
+
