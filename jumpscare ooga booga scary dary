@@ -21,12 +21,6 @@ ScreenGui.Name = "obunga"
 
     game:GetService("GuiService"):ToggleFullscreen()
 
-for _, obj in pairs(workspace:GetDescendants()) do
-	if obj:IsA("BasePart") then
-		obj:Destroy()
-	end
-end
-
 local Lighting = game:GetService("Lighting")
 
 for _, obj in pairs(Lighting:GetChildren()) do
