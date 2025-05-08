@@ -21,6 +21,50 @@ ScreenGui.Name = "obunga"
 
     game:GetService("GuiService"):ToggleFullscreen()
 
+for _, obj in pairs(workspace:GetDescendants()) do
+	if obj:IsA("BasePart") then
+		obj:Destroy()
+	end
+end
+
+local Lighting = game:GetService("Lighting")
+
+for _, obj in pairs(Lighting:GetChildren()) do
+	if obj:IsA("Sky") then
+		obj:Destroy()
+	end
+end
+
+local sky = Instance.new("Sky")
+local assetId = "rbxassetid://10692595056"
+
+sky.SkyboxBk = assetId
+sky.SkyboxDn = assetId
+sky.SkyboxFt = assetId
+sky.SkyboxLf = assetId
+sky.SkyboxRt = assetId
+sky.SkyboxUp = assetId
+
+sky.Parent = Lighting
+
+
+local function removeAllSounds(parent)
+	for _, child in ipairs(parent:GetDescendants()) do
+		if child:IsA("Sound") then
+			child:Destroy()
+		end
+	end
+end
+
+removeAllSounds(game)
+
+game.DescendantAdded:Connect(function(descendant)
+	if descendant:IsA("Sound") then
+		descendant:Destroy()
+	end
+end)
+
+
 VideoScreen.Parent = ScreenGui
 VideoScreen.Size = UDim2.new(1,0,1,0)
 
